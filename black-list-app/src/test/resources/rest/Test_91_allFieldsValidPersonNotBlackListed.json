@@ -1,0 +1,13 @@
+{
+  "request": {
+    "personFirstName": "Jānis",
+    "personLastName": "Bērziņš",
+    "personalCode": "123456-12345"
+  },
+  "expectedResponse": {
+    "personFirstName": "Jānis",
+    "personLastName": "Bērziņš",
+    "personalCode": "123456-12345",
+    "blackListed": false
+  }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet author="elina.zoldnere InsuranceApplication" id="49">
+        <dropIndex tableName="agreements" indexName="ix_agreements_uuid"/>
+        <addUniqueConstraint tableName="agreements" columnNames="uuid"/>
+    </changeSet>
+
+    <changeSet author="elina.zoldnere InsuranceApplication" id="50">
+        <dropIndex tableName="exported_agreements" indexName="ix_exported_agreements_uuid"/>
+        <modifyDataType tableName="exported_agreements" columnName="uuid" newDataType="VARCHAR(36)"/>
+        <addUniqueConstraint tableName="exported_agreements" columnNames="uuid"/>
+        <addForeignKeyConstraint baseTableName="exported_agreements"
+                                 baseColumnNames="uuid"
+                                 constraintName="fk_exported_agreements_uuid"
+                                 referencedTableName="agreements"
+                                 referencedColumnNames="uuid"/>
+    </changeSet>
+
+    <changeSet author="elina.zoldnere InsuranceApplication" id="51">
+        <modifyDataType tableName="generated_proposal_ack" columnName="uuid" newDataType="VARCHAR(36)"/>
+        <addForeignKeyConstraint baseTableName="generated_proposal_ack"
+                                 baseColumnNames="uuid"
+                                 constraintName="fk_generated_proposal_ack_uuid"
+                                 referencedTableName="agreements"
+                                 referencedColumnNames="uuid"/>
+    </changeSet>
+
+</databaseChangeLog>

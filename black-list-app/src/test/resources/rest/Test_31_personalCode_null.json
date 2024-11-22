@@ -1,0 +1,15 @@
+{
+  "request": {
+    "personFirstName": "Jānis",
+    "personLastName": "Bērziņš",
+    "personalCode": null
+  },
+  "expectedResponse": {
+    "errors": [
+      {
+        "errorCode": "ERROR_CODE_3",
+        "description": "Field personalCode is empty!"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <!-- changeSets for H2 database -->
+    <changeSet author="elina.zoldnere InsuranceApplication" id="46-h2">
+        <preConditions onFail="MARK_RAN">
+            <dbms type="h2"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE persons
+            ALTER COLUMN birth_date TYPE DATE;
+        </sql>
+    </changeSet>
+
+    <changeSet author="elina.zoldnere InsuranceApplication" id="47-h2">
+        <preConditions onFail="MARK_RAN">
+            <dbms type="h2"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE agreements
+            ALTER COLUMN date_from TYPE DATE;
+            ALTER TABLE agreements
+            ALTER COLUMN date_to TYPE DATE;
+        </sql>
+    </changeSet>
+
+    <!-- changeSets for MySQL database -->
+    <changeSet author="elina.zoldnere InsuranceApplication" id="46-mysql">
+        <preConditions onFail="MARK_RAN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE persons
+            MODIFY COLUMN birth_date DATE;
+        </sql>
+    </changeSet>
+
+    <changeSet author="elina.zoldnere InsuranceApplication" id="47-mysql">
+        <preConditions onFail="MARK_RAN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <sql>
+            ALTER TABLE agreements
+            MODIFY COLUMN date_from DATE;
+            ALTER TABLE agreements
+            MODIFY COLUMN date_to DATE;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

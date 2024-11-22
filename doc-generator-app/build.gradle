@@ -1,0 +1,113 @@
+plugins {
+    id 'org.springframework.boot' version '3.3.1'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'maven-publish'
+    id 'com.palantir.docker' version '0.36.0'
+    id 'checkstyle'
+}
+
+checkstyle {
+    configFile = 'config/checkstyle/checkstyle.xml' as File
+    configProperties.suppressionsFile = file('config/checkstyle/suppressions.xml').absolutePath
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.1'
+    implementation 'com.google.guava:guava:33.0.0-jre'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'jakarta.validation:jakarta.validation-api'
+    implementation 'org.apache.pdfbox:pdfbox:3.0.3'
+
+    implementation 'com.mysql:mysql-connector-j:8.3.0'
+    implementation 'com.h2database:h2:2.2.224'
+
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    implementation 'io.zipkin.brave:brave-instrumentation-spring-rabbit'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testImplementation 'uk.org.webcompere:model-assert:1.0.3'
+    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'com.h2database:h2:2.2.224'
+
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.32'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.32'
+}
+
+tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }
+tasks.withType(JavaExec).configureEach { defaultCharacterEncoding = "UTF-8" }
+tasks.withType(Javadoc).configureEach { options.encoding = "UTF-8" }
+tasks.withType(Test).configureEach { defaultCharacterEncoding = "UTF-8" }
+
+tasks.register('cleanLogs', Delete) { delete fileTree(dir: 'logs') }
+tasks.named('clean') { dependsOn tasks.named('cleanLogs') }
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+jar {
+    enabled = false
+}
+
+bootJar {
+    enabled = true
+    archiveBaseName = 'doc-generator'
+    archiveVersion = '1.0.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            // Identify the artifact
+            artifact bootJar  // This refers to the Spring Boot's bootJar task
+
+            // Project coordinates
+            groupId = 'lv.javaguru'
+            artifactId = 'doc-generator'
+            version = '1.0.0'
+
+            // Add other metadata as needed
+            pom {
+                name = 'Doc generator'
+                description = 'Application to generate PDF documents'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }    }
+
+    // Configure the repository location (local Maven repository)
+    repositories {
+        mavenLocal()
+    }
+}
+
+docker {
+    dependsOn bootJar
+    name "doc-generator:1.0.0"
+    files 'build/libs/doc-generator-1.0.0.jar'
+    files 'wait-for-it.sh'
+    buildArgs(['JAR_FILE': "doc-generator-1.0.0.jar"])
+}
+
+tasks.named('dockerPrepare').configure {
+    dependsOn bootJar // Explicit dependency on bootJar
+}

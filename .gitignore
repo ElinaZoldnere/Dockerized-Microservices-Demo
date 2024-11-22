@@ -1,0 +1,38 @@
+# Java
+*.class
+*.jar
+*.war
+# except
+!gradle/wrapper/gradle-wrapper.jar
+
+# Gradle
+.gradle
+**/build/
+**/logs/
+
+# IntelliJ IDEA
+.idea
+**/out/
+*.iws
+*.iml
+*.ipr
+
+# OS
+**/.DS_Store
+**/Thumbs.db
+
+# log
+*.log
+
+# Environment
+**/.env
+
+# Personal files
+/documentation/notes/
+
+# Generated outputs
+**/docs/
+
+# Elastic stack
+/elk/elasticsearch/data/
+/elk/filebeat/data/

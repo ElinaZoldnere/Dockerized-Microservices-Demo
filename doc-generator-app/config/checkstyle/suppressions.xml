@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD Suppressions 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<suppressions>
+    <!-- Suppress MultipleStringLiterals check for all test files -->
+    <suppress checks="MultipleStringLiterals"
+              files=".*[\\/]test[\\/].*\.java"/>
+
+    <!-- Suppress MagicNumber check for all test files -->
+    <suppress checks="MagicNumber"
+              files=".*[\\/]test[\\/].*\.java"/>
+
+    <!-- Suppress HideUtilityClassConstructor check for entry point class -->
+    <suppress checks="HideUtilityClassConstructor"
+             files=".*DocGeneratorApplication.java"/>
+
+</suppressions>

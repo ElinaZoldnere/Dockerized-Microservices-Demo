@@ -1,0 +1,168 @@
+version: '2.4'
+
+networks:
+  javaguru-network:
+
+services:
+  app:
+    container_name: insurance-calc-container
+    image: insurance-calculator:1.0.2
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql-container
+    env_file:
+      - .env
+    networks:
+      - my-network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ${AGREEMENT_XML_EXPORTER_JOB_PATH_MAP_TO_LOCAL}:/app/docs/xml_exports
+    depends_on:
+      - db
+      - mb
+      - bl
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+      # db:
+      #  condition: service_healthy
+
+  db:
+    container_name: mysql-container
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD_CONTAINER}
+      INSURANCE_CALC_MYSQL_DATABASE: ${INSURANCE_CALC_MYSQL_DATABASE_CONTAINER}
+      BLACKLIST_MYSQL_DATABASE: ${BLACKLIST_MYSQL_DATABASE_CONTAINER}
+    env_file:
+      - .env
+    networks:
+      - my-network
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    ports:
+      - "3000:3306"
+
+    # health check:
+    #  test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+    #  interval: 10sL
+    #  timeout: 5s
+    #  retries: 5
+
+  mb:
+    container_name: rabbitmq-container
+    image: rabbitmq:3-management
+    networks:
+      - my-network
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  dg:
+    container_name: doc-generator-container
+    image: doc-generator:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: rabbitmq-container
+    env_file:
+      - .env
+    networks:
+      - my-network
+    ports:
+      - "8081:8080"
+    volumes:
+      - ${PROPOSALS_DIRECTORY_PATH_MAP_TO_LOCAL}:/app/docs/proposals
+    depends_on:
+      - mb
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+  bl:
+    container_name: black-list-container
+    image: black-list:1.0.0
+    environment:
+      SPRING_PROFILES_ACTIVE: mysql-container
+    env_file:
+      - .env
+    networks:
+      - my-network
+    ports:
+      - "8090:8080"
+    depends_on:
+      - db
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
+
+  elasticsearch:
+    container_name: elk-elasticsearch-container
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    networks:
+      - my-network
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+      - TZ=Europe/Riga
+    volumes:
+      - ./elk/elasticsearch/data:/usr/share/elasticsearch/data:rw              # Persistence data
+
+  logstash:
+    container_name: elk-logstash-container
+    image: my-custom-logstash:1.0.2
+    networks:
+      - my-network
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    environment:
+      - TZ=Europe/Riga
+    volumes:
+      - ./elk/logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf                # Pipeline configuration
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    container_name: elk-kibana-container
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    networks:
+      - my-network
+    ports:
+      - "5601:5601"
+    environment:
+      - TZ=Europe/Riga
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    container_name: elk-filebeat-container
+    image: my-custom-filebeat:1.0.2
+    networks:
+      - my-network
+    environment:
+      - TZ=Europe/Riga
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./elk/filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: always
+    depends_on:
+      - logstash
+
+  metricbeat:
+    container_name: elk-metricbeat-container
+    image: my-custom-metricbeat:1.0.2
+    networks:
+      - my-network
+    environment:
+      - TZ=Europe/Riga
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: always
+    depends_on:
+      - logstash

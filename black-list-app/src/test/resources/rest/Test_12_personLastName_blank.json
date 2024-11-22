@@ -1,0 +1,15 @@
+{
+  "request": {
+    "personFirstName": "Jānis",
+    "personLastName": "     ",
+    "personalCode": "123456-12345"
+  },
+  "expectedResponse": {
+    "errors": [
+      {
+        "errorCode": "ERROR_CODE_2",
+        "description": "Field personLastName is empty!"
+      }
+    ]
+  }
+}
