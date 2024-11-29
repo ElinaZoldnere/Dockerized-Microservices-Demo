@@ -1,7 +1,7 @@
 version: '2.4'
 
 networks:
-  javaguru-network:
+  my-network:
 
 services:
   app:

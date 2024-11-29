@@ -34,7 +34,7 @@ public class AgreementXmlExporterJob {
     @Value("${agreement.xml.exporter.job.thread.count:1}")
     private int parallelThreadCount;
 
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate = 5, timeUnit = TimeUnit.MINUTES)
     public void executeJob() {
         if (jobEnabled) {
             LOGGER.info("AgreementXmlExporterJob started");
