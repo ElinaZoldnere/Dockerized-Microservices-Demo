@@ -161,6 +161,8 @@ services:
       - my-network
     environment:
       - TZ=Europe/Riga
+    env_file:
+      - .env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
     user: root                                                             # Allow access to log files and docker.sock

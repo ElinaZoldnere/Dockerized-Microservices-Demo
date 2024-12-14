@@ -1,15 +1,28 @@
 - module: http
   metricsets: ["json"]
   period: 10s
-  hosts: ["http://insurance-calc-container:8080/actuator/metrics/http.server.requests", "http://black-list-container:8080/actuator/metrics/http.server.requests"]
-  namespace: "insurance-calc_rest"
-  path: "/"
-  body: ""
-  method: "GET"
-  # Authentication (if required):
-  # authentication:
-  #   basic:
-  #     username: "user"
-  #     password: "password"
+  hosts: "http://insurance-calc-container:8080"
+  path: "/actuator/metrics/http.server.requests"
+  namespace: "insurance-calc"
+  username: ${INSUR_CALC_ACTUATOR_USERNAME}
+  password: ${INSUR_CALC_ACTUATOR_PASSWORD}
+  json.is_array: false
+  dedot.enabled: true
+
+- module: http
+  metricsets: ["json"]
+  period: 10s
+  hosts: "http://black-list-container:8080"
+  path: "/actuator/metrics/http.server.requests"
+  namespace: "black-list"
+  json.is_array: false
+  dedot.enabled: true
+
+- module: http
+  metricsets: ["json"]
+  period: 10s
+  hosts: "http://doc-generator-container:8080"
+  path: "/actuator/metrics/http.server.requests"
+  namespace: "doc-generator"
   json.is_array: false
   dedot.enabled: true
