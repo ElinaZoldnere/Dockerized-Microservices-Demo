@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'com.palantir.docker' version '0.36.0'
     id 'checkstyle'
+    id 'jacoco'
 }
 
 checkstyle {
@@ -121,4 +122,16 @@ docker {
 
 tasks.named('dockerPrepare').configure {
     dependsOn bootJar // Explicit dependency on bootJar
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }
