@@ -2,11 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Travel Insurance Premium Calculation</title>
 </head>
 <body>
 
-<h1>Travel Insurance Premium Calculation</h1>
+<header th:replace="fragments/header :: header"></header>
+
+<h2>Travel Insurance Premium Calculation</h2>
 
 <form action="#" th:action="@{/insurance/travel/web/v2}" th:object="${request}" method="post">
     <div>
