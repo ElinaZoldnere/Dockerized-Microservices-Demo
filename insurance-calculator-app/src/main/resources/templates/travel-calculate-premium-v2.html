@@ -15,73 +15,83 @@
 
 <h2>Travel Insurance Premium Calculation</h2>
 
-<form action="#" th:action="@{/insurance/travel/web/v2}" th:object="${request}" method="post">
-    <div>
-        <label for="agreementDateFrom">Agreement Date From:</label>
-        <input type="date" id="agreementDateFrom" th:field="*{agreementDateFrom}"/>
+<form action="#" th:action="@{/insurance/travel/web/v2}" th:object="${request}" method="post"
+      class="container mt-4">
+    <div class="mb-3">
+        <label for="agreementDateFrom" class="form-label">Agreement Date From:</label>
+        <input type="date" id="agreementDateFrom" th:field="*{agreementDateFrom}"
+               class="form-control"/>
     </div>
-    <br>
-    <div>
-        <label for="agreementDateTo">Agreement Date To:</label>
-        <input type="date" id="agreementDateTo" th:field="*{agreementDateTo}"/>
+
+    <div class="mb-3">
+        <label for="agreementDateTo" class="form-label">Agreement Date To:</label>
+        <input type="date" id="agreementDateTo" th:field="*{agreementDateTo}" class="form-control"/>
     </div>
-    <br>
-    <div>
-        <label for="country">Country:</label>
-        <input type="text" id="country" th:field="*{country}"/>
+
+    <div class="mb-3">
+        <label for="country" class="form-label">Country:</label>
+        <input type="text" id="country" th:field="*{country}" class="form-control"/>
     </div>
-    <br>
-    <div>
-        <label for="selectedRisks">Selected Risks:</label>
-        <textarea id="selectedRisks" th:field="*{selectedRisks}"></textarea>
+
+    <div class="mb-3">
+        <label for="selectedRisks" class="form-label">Selected Risks:</label>
+        <textarea id="selectedRisks" th:field="*{selectedRisks}" class="form-control"></textarea>
     </div>
-    <br>
+
     <div id="persons-container">
         <!-- PersonRequestDTO dynamic forms will be added here -->
-        <div th:each="person, personStat : *{persons}">
-            <div class="person-form">
+        <div th:each="person, personStat : *{persons}" class="card shadow-sm mt-3">
+            <div class="card-body">
                 <h3>Person <span th:text="${personStat.index + 1}"></span></h3>
                 <div>
-                    <label for="personFirstName">First Name:</label>
+                    <label for="personFirstName" class="form-label">First Name:</label>
                     <input type="text"
-                           th:field="*{persons[__${personStat.index}__].personFirstName}"/>
+                           th:field="*{persons[__${personStat.index}__].personFirstName}"
+                           class="form-control"/>
                 </div>
-                <br>
+
                 <div>
-                    <label for="personLastName">Last Name:</label>
+                    <label for="personLastName" class="form-label">Last Name:</label>
                     <input type="text"
-                           th:field="*{persons[__${personStat.index}__].personLastName}"/>
+                           th:field="*{persons[__${personStat.index}__].personLastName}"
+                           class="form-control"/>
                 </div>
-                <br>
+
                 <div>
-                    <label for="personalCode">Personal Code:</label>
-                    <input type="text" th:field="*{persons[__${personStat.index}__].personalCode}"/>
+                    <label for="personalCode" class="form-label">Personal Code:</label>
+                    <input type="text" th:field="*{persons[__${personStat.index}__].personalCode}"
+                           class="form-control"/>
                 </div>
-                <br>
+
                 <div>
-                    <label for="personBirthDate">Birth Date:</label>
+                    <label for="personBirthDate" class="form-label">Birth Date:</label>
                     <input type="date"
-                           th:field="*{persons[__${personStat.index}__].personBirthDate}"/>
+                           th:field="*{persons[__${personStat.index}__].personBirthDate}"
+                           class="form-control"/>
                 </div>
-                <br>
+
                 <div>
-                    <label for="medicalRiskLimitLevel">Medical Risk Limit Level:</label>
+                    <label for="medicalRiskLimitLevel" class="form-label">Medical Risk Limit
+                        Level:</label>
                     <input type="text"
-                           th:field="*{persons[__${personStat.index}__].medicalRiskLimitLevel}"/>
+                           th:field="*{persons[__${personStat.index}__].medicalRiskLimitLevel}"
+                           class="form-control"/>
                 </div>
+
                 <div>
-                    <label for="travelCost">Travel Cost:</label>
-                    <input type="text" th:field="*{persons[__${personStat.index}__].travelCost}"/>
+                    <label for="travelCost" class="form-label">Travel Cost:</label>
+                    <input type="text" th:field="*{persons[__${personStat.index}__].travelCost}"
+                           class="form-control"/>
                 </div>
-                <br>
+
             </div>
         </div>
     </div>
-    <br>
-    <button type="button" onclick="addPerson()">Add Person</button>
-    <button type="button" onclick="removePerson()">Remove Person</button>
-    <button type="submit">Calculate Premium</button>
-    <button type="button" onclick="clearForm()">Clear</button>
+
+    <button type="button" onclick="addPerson()" class="btn btn-primary">Add Person</button>
+    <button type="button" onclick="removePerson()" class="btn btn-danger">Remove Person</button>
+    <button type="submit" class="btn btn-success">Calculate Premium</button>
+    <button type="button" onclick="clearForm()" class="btn btn-secondary">Clear</button>
 </form>
 
 <!-- Added condition if response != null -->
@@ -110,52 +120,55 @@
         <tr th:each="error : ${response.errors}">
     <td th:text="${error.errorCode}"/>
     <td th:text="${error.description}"/>
-    <br>
-    <br>
+
+
     </tr>
     </td>
-    <br>
+
     <h3>
         <label th:if="${response.agreementPremium != null}"
                th:text="'AGREEMENT PREMIUM: ' + ${response.agreementPremium}"></label>
     </h3>
-    <br>
+
 </div>
 <script>
     function addPerson() {
         let personsContainer = document.getElementById("persons-container");
         let index = document.getElementsByClassName("person-form").length;
         let personTemplate = `
-            <div class="person-form">
-                <h3>Person ${index + 1}</h3>
-                <div>
-                    <label for="persons[${index}].personFirstName">First Name:</label>
-                    <input type="text" id="persons[${index}].personFirstName" name="persons[${index}].personFirstName" />
-                </div>
-                <br>
-                <div>
-                    <label for="persons[${index}].personLastName">Last Name:</label>
-                    <input type="text" id="persons[${index}].personLastName" name="persons[${index}].personLastName" />
-                </div>
-                <br>
-                <div>
-                    <label for="persons[${index}].personalCode">Personal Code:</label>
-                    <input type="text" id="persons[${index}].personalCode" name="persons[${index}].personalCode" />
-                </div>
-                <br>
-                <div>
-                    <label for="persons[${index}].personBirthDate">Birth Date:</label>
-                    <input type="date" id="persons[${index}].personBirthDate" name="persons[${index}].personBirthDate" />
-                </div>
-                <br>
-                <div>
-                    <label for="persons[${index}].medicalRiskLimitLevel">Medical Risk Limit Level:</label>
-                    <input type="text" id="persons[${index}].medicalRiskLimitLevel" name="persons[${index}].medicalRiskLimitLevel" />
-                </div>
-                <br>
-                <div>
-                    <label for="persons[${index}].travelCost">Travel Cost:</label>
-                    <input type="text" id="persons[${index}].travelCost" name="persons[${index}].travelCost" />
+            <div class="card shadow-sm mt-3">
+                <div class="card-body">
+                    <h3 class="text-primary">Person ${index + 1}</h3>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].personFirstName">First Name:</label>
+                        <input type="text" class="form-control" id="persons[${index}].personFirstName" name="persons[${index}].personFirstName" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].personLastName">Last Name:</label>
+                        <input type="text" class="form-control" id="persons[${index}].personLastName" name="persons[${index}].personLastName" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].personalCode">Personal Code:</label>
+                        <input type="text" class="form-control" id="persons[${index}].personalCode" name="persons[${index}].personalCode" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].personBirthDate">Birth Date:</label>
+                        <input type="date" class="form-control" id="persons[${index}].personBirthDate" name="persons[${index}].personBirthDate" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].medicalRiskLimitLevel">Medical Risk Limit Level:</label>
+                        <input type="text" class="form-control" id="persons[${index}].medicalRiskLimitLevel" name="persons[${index}].medicalRiskLimitLevel" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="persons[${index}].travelCost">Travel Cost:</label>
+                        <input type="text" class="form-control" id="persons[${index}].travelCost" name="persons[${index}].travelCost" />
+                    </div>
                 </div>
             </div>`;
         personsContainer.insertAdjacentHTML('beforeend', personTemplate);
