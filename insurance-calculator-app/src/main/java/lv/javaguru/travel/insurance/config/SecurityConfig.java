@@ -66,6 +66,8 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/insurance/travel/web/**")
                                 .permitAll()
+                                .requestMatchers("/favicon.ico").permitAll()
+                                .requestMatchers("/js/person.js").permitAll()
 
                                 .requestMatchers("/h2-console/**")
                                 .permitAll()
