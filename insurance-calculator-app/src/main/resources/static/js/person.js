@@ -2,9 +2,9 @@ function addPerson() {
     let personsContainer = document.getElementById("persons-container");
     let index = document.getElementsByClassName("person-card").length;
     let personTemplate = `
-        <div class="card person-card shadow-sm mt-3">
+        <div class="card person-card shadow-sm mt-4">
             <div class="card-body">
-                <h3 class="text-primary">Person ${index + 1}</h3>
+                <h2 class="text-primary fs-4 mb-3">Person ${index + 1}</h2>
 
                 <div class="mb-3">
                     <label class="form-label" for="persons[${index}].personFirstName">First Name:</label>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Travel Insurance Premium Calculation</title>
+    <title>Insurance Calculator</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
@@ -11,12 +11,13 @@
 </head>
 <body>
 
-<header th:replace="fragments/header :: header"></header>
-
-<h2>Travel Insurance Premium Calculation</h2>
+<header th:replace="~{fragments/header :: header}"></header>
 
 <form action="#" th:action="@{/insurance/travel/web/v2}" th:object="${request}" method="post"
       class="container mt-4">
+
+    <h1 class="text-primary fs-3 mb-3">Calculate Premium:</h1>
+
     <div class="mb-3">
         <label for="agreementDateFrom" class="form-label">Agreement Date From:</label>
         <input type="date" id="agreementDateFrom" th:field="*{agreementDateFrom}"
@@ -40,37 +41,39 @@
 
     <div id="persons-container" class="mb-3">
         <!-- PersonRequestDTO dynamic forms will be added here -->
-        <div th:each="person, personStat : *{persons}" class="card person-card shadow-sm mt-3">
+        <div th:each="person, personStat : *{persons}" class="card person-card shadow-sm mt-4">
             <div class="card-body">
-                <h3>Person <span th:text="${personStat.index + 1}"></span></h3>
-                <div>
+                <h2 class="text-primary fs-4 mb-3">Person <span
+                        th:text="${personStat.index + 1}"></span>
+                </h2>
+                <div class="mb-3">
                     <label for="personFirstName" class="form-label">First Name:</label>
                     <input type="text"
                            th:field="*{persons[__${personStat.index}__].personFirstName}"
                            class="form-control"/>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label for="personLastName" class="form-label">Last Name:</label>
                     <input type="text"
                            th:field="*{persons[__${personStat.index}__].personLastName}"
                            class="form-control"/>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label for="personalCode" class="form-label">Personal Code:</label>
                     <input type="text" th:field="*{persons[__${personStat.index}__].personalCode}"
                            class="form-control"/>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label for="personBirthDate" class="form-label">Birth Date:</label>
                     <input type="date"
                            th:field="*{persons[__${personStat.index}__].personBirthDate}"
                            class="form-control"/>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label for="medicalRiskLimitLevel" class="form-label">Medical Risk Limit
                         Level:</label>
                     <input type="text"
@@ -78,7 +81,7 @@
                            class="form-control"/>
                 </div>
 
-                <div>
+                <div class="mb-3">
                     <label for="travelCost" class="form-label">Travel Cost:</label>
                     <input type="text" th:field="*{persons[__${personStat.index}__].travelCost}"
                            class="form-control"/>
@@ -88,53 +91,72 @@
         </div>
     </div>
 
-    <div class="mb-4">
-        <button type="button" onclick="addPerson()" class="btn btn-primary">Add Person</button>
-        <button type="button" onclick="removePerson()" class="btn btn-danger">Remove Person</button>
-        <button type="submit" class="btn btn-success">Calculate Premium</button>
+    <div class="mb-5">
+        <button type="button" onclick="addPerson()" class="btn btn-secondary">Add Person</button>
+        <button type="button" onclick="removePerson()" class="btn btn-secondary">Remove Person
+        </button>
         <button type="button" onclick="clearForm()" class="btn btn-secondary">Clear</button>
+        <button type="submit" class="btn btn-primary">Calculate</button>
     </div>
 </form>
 
-<!-- Added condition if response != null -->
-<div th:if="${response != null}">
-    <td th:if="${response.persons != null}">
-        <h3>Travel Insurance Premium Calculation PERSONS</h3>
-        <div class="person-data" th:each="person : ${response.persons}">
-            <h3 th:text="${person.personFirstName} + ' ' + ${person.personLastName}"></h3>
-            <p th:text="'Personal Code: ' + ${person.personalCode}"></p>
-            <p th:text="'Birth Date: ' + ${#dates.format(person.personBirthDate, 'yyyy-MM-dd')}"></p>
-            <p th:if="${person.medicalRiskLimitLevel != null and !#strings.isEmpty(person.medicalRiskLimitLevel)}"
-               th:text="'Medical Risk Limit Level: ' + ${person.medicalRiskLimitLevel}"></p>
-            <p th:if="${person.travelCost} != null"
-               th:text="'Travel Cost: ' + ${person.travelCost}"></p>
-            <p th:text="'Person Premium: ' + ${person.personPremium}"></p>
-            <p>Risks:</p>
+<!-- If response != null -->
+<div th:if="${response != null}" class="card response-card shadow-sm mt-3">
+    <div class="card-body">
+
+        <!-- Successful result -->
+        <div th:if="${response.persons != null}" class="container mb-5">
+            <h2 class="text-primary fs-4 mb-3">Calculation Result</h2>
+
+            <div class="person-data card p-3 mb-5 bg-light text-dark fs-6"
+                 th:each="person : ${response.persons}">
+
+                <h3 class="fw-semibold fs-4 mb-3"
+                    th:text="${person.personFirstName} + ' ' + ${person.personLastName}"></h3>
+                <p class="mb-2">Personal Code: <span th:text="${person.personalCode}"></span></p>
+                <p class="mb-2">Birth Date: <span
+                        th:text="${#temporals.format(person.personBirthDate, 'yyyy-MM-dd')}"></span>
+                </p>
+                <p class="mb-2" th:if="${person.medicalRiskLimitLevel != null and !#strings.isEmpty(person.medicalRiskLimitLevel)}">
+                    Medical Risk Limit Level: <span
+                        th:text="${person.medicalRiskLimitLevel}"></span>
+                </p>
+                <p class="mb-2" th:if="${person.travelCost} != null">
+                    Travel Cost: <span th:text="${person.travelCost}"></span>
+                </p>
+                <p class="mb-2">Person Premium: <span th:text="${person.personPremium}"></span></p>
+                <p class="mb-1">Risks: </p>
+                <ul>
+                    <li class="mb-1" th:each="risk : ${person.personRisks}">
+                        <span th:text="${risk.riskIc}"></span>:
+                        <span th:text="${risk.premium}"></span>
+                    </li>
+                </ul>
+                <h2 class="text-primary fs-5 mb-3">
+                    <label th:if="${response.agreementPremium != null}"
+                           th:text="'Agreement premium: ' + ${response.agreementPremium}"></label>
+                </h2>
+            </div>
+        </div>
+
+        <!-- Error result -->
+        <div th:if="${response.errors != null}" class="alert alert-danger container">
+            <h2 class="text-burgundy fs-5 mb-3">Errors: </h2>
             <ul>
-                <li th:each="risk : ${person.personRisks}"
-                    th:text="${risk.riskIc} + ': ' + ${risk.premium}"></li>
+                <li class="text-burgundy fs-6" th:each="error : ${response.errors}">
+                    <span class="fw-semibold" th:text="${error.errorCode}"></span>:
+                    <span th:text="${error.description}"></span>
+                </li>
             </ul>
         </div>
-    </td>
-
-    <td th:if="${response.errors != null}">
-        <h3>Travel Insurance Premium Calculation ERRORS</h3>
-        <tr th:each="error : ${response.errors}">
-    <td th:text="${error.errorCode}"/>
-    <td th:text="${error.description}"/>
-    </tr>
-    </td>
-    <h3>
-        <label th:if="${response.agreementPremium != null}"
-               th:text="'AGREEMENT PREMIUM: ' + ${response.agreementPremium}"></label>
-    </h3>
+    </div>
 </div>
-
-<!-- JavaScript for adding persons -->
-<script th:src="@{/js/person.js}"></script>
 
 <!-- Bootstrap JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JavaScript for adding persons -->
+<script th:src="@{/js/person.js}"></script>
 
 </body>
 </html>
