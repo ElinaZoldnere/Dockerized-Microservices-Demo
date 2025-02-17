@@ -1,5 +1,6 @@
 package lv.javaguru.travel.insurance.core.repositories;
 
+import java.util.List;
 import java.util.Optional;
 import lv.javaguru.travel.insurance.core.domain.ClassifierValue;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,5 +18,8 @@ public interface ClassifierValueRepository extends JpaRepository<ClassifierValue
             @Param("classifierTitle") String classifierTitle,
             @Param("ic") String ic
     );
+
+    @SuppressWarnings("checkstyle:MethodName")
+    List<ClassifierValue> findByClassifier_Title(String classifierTitle);
 
 }
