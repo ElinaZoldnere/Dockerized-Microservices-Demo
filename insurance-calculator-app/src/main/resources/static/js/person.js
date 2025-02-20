@@ -56,6 +56,7 @@ function clearForm() {
 document.addEventListener('DOMContentLoaded', (event) => {
     preselectDates();
     addDropdownCountries();
+    addDropdownSelectedRisks();
 });
 
 function preselectDates() {
@@ -98,6 +99,31 @@ function addDropdownCountries() {
             });
         })
         .catch (error => console.error("Error fetching countries: ", error));
+}
+
+function addDropdownSelectedRisks() {
+    const selectedRisksDropdown = document.getElementById("selectedRisks");
+
+    // Clear previous content
+    selectedRisksDropdown.innerHTML = "";
+
+    fetch("/insurance/travel/web/v2/dropdown/selected-risks")
+        .then(response => response.json()) // Convert to JSON
+        .then(data => {
+            data.items.forEach(i => {
+                let option = document.createElement("option");
+                option.value = i;
+                option.textContent = i;
+                selectedRisksDropdown.appendChild(option);
+            });
+
+            // Initialize Select2
+            $('#selectedRisks').select2({
+                placeholder: "Choose Risks...",
+                allowClear: true
+            });
+        })
+        .catch (error => console.error("Error fetching selected risks: ", error));
 }
 
 function addDropdownMedicalRiskLimitLevel(index) {

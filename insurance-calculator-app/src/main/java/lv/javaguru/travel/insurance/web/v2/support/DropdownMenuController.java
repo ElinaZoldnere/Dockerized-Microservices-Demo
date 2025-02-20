@@ -1,5 +1,6 @@
 package lv.javaguru.travel.insurance.web.v2.support;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.web.v2.support.dto.DropdownMenuResponse;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,12 @@ class DropdownMenuController {
     public DropdownMenuResponse medicalRiskLimitLevel() {
         return new DropdownMenuResponse(
                 service.getClassifiers("MEDICAL_RISK_LIMIT_LEVEL"));
+    }
+
+    @GetMapping(path = "/selected-risks", produces = "application/json")
+    public DropdownMenuResponse selectedRisks() {
+        // Only these two risks are implemented
+        return new DropdownMenuResponse(List.of("TRAVEL_MEDICAL", "TRAVEL_CANCELLATION"));
     }
 
 }
