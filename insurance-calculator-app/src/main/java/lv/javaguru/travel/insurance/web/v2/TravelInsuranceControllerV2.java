@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor(access = lombok.AccessLevel.PACKAGE)
-class TravelInsuranceControllerV2 {
+public class TravelInsuranceControllerV2 {
 
-    private static final String PATH_TRAVEL_INSURANCE_WEB_V2 = "/insurance/travel/web/v2";
+    public static final String PATH_TRAVEL_INSURANCE_WEB_V2 = "/insurance/travel/web/v2";
     private static final String VIEW_TRAVEL_CALCULATE_PREMIUM_V2 = "travel-calculate-premium-v2";
 
     private final TravelCalculatePremiumService service;
@@ -26,7 +26,6 @@ class TravelInsuranceControllerV2 {
     @GetMapping(PATH_TRAVEL_INSURANCE_WEB_V2)
     public String showForm(ModelMap modelMap) {
         modelMap.addAttribute("request", new TravelCalculatePremiumRequestV2());
-        //modelMap.addAttribute("response", new TravelCalculatePremiumResponseV2());
         return VIEW_TRAVEL_CALCULATE_PREMIUM_V2;
     }
 

@@ -39,6 +39,7 @@ class CacheConfig {
         cacheManager.registerCustomCache("countryDefaultDayRateCache", buildCaffeineProfile2());
         cacheManager.registerCustomCache("medicalRiskLimitLevelCache", buildCaffeineProfile1());
         cacheManager.registerCustomCache("tmAgeCoefficientCache", buildCaffeineProfile1());
+        cacheManager.registerCustomCache("dropdownClassifierCache", buildCaffeineProfile1());
         return cacheManager;
     }
 

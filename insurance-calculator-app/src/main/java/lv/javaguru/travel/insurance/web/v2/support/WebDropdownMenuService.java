@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.core.domain.ClassifierValue;
 import lv.javaguru.travel.insurance.core.repositories.ClassifierValueRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,6 +14,7 @@ class WebDropdownMenuService {
 
     private final ClassifierValueRepository repository;
 
+    @Cacheable("dropdownClassifierCache")
     List<String> getClassifiers(String classifierTitle) {
         List<ClassifierValue> values = repository.findByClassifier_Title(classifierTitle);
         return values.stream()

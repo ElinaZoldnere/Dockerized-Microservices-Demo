@@ -31,7 +31,7 @@
 
     <div class="mb-3">
         <label for="country" class="form-label">Country:</label>
-        <select id="country" th:field="*{country}" class="form-control"/>
+        <select id="country" th:field="*{country}" class="form-control"></select>
     </div>
 
     <div class="mb-3">
@@ -76,9 +76,8 @@
                 <div class="mb-3">
                     <label for="medicalRiskLimitLevel" class="form-label">Medical Risk Limit
                         Level:</label>
-                    <input type="text"
-                           th:field="*{persons[__${personStat.index}__].medicalRiskLimitLevel}"
-                           class="form-control"/>
+                    <select th:field="*{persons[__${personStat.index}__].medicalRiskLimitLevel}"
+                           class="form-control"></select>
                 </div>
 
                 <div class="mb-3">
