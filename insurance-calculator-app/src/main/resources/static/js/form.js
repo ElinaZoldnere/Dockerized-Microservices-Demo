@@ -1,4 +1,4 @@
-function addPerson() {
+async function addPerson() {
     let personsContainer = document.getElementById("persons-container");
     let index = document.getElementsByClassName("person-card").length;
     let personTemplate = `
@@ -38,8 +38,10 @@ function addPerson() {
             </div>
         </div>`;
     personsContainer.insertAdjacentHTML('beforeend', personTemplate);
+
+    const medicalRiskLimitLevel = await fetchDropdownData("/medical-risk-limit-level");
     populateDropdown(`persons[${index}].medicalRiskLimitLevel`,
-        "Choose Medical Risk Limit Level...", "/medical-risk-limit-level");
+        "Choose Medical Risk Limit Level...", medicalRiskLimitLevel);
 }
 
 function removePerson() {
@@ -54,10 +56,14 @@ function clearForm() {
     window.location.href = window.location.href.split('?')[0];
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener("DOMContentLoaded", async () => {
     preselectDates();
-    populateDropdown("country", "Choose Country...", "/countries");
-    populateDropdown("selectedRisks", "Choose Risks...", "/selected-risks", true);
+
+    const countries = await fetchDropdownData("/countries");
+    populateDropdown("country", "Choose Country...", countries);
+
+    const selectedRisks = await fetchDropdownData("/selected-risks");
+    populateDropdown("selectedRisks", "Choose Risks...", selectedRisks, true);
 });
 
 function preselectDates() {

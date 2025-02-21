@@ -1,4 +1,15 @@
-function populateDropdown(dropdownId, defaultText, endpoint, isMultiSelect = false) {
+async function fetchDropdownData(endpoint) {
+    try {
+        const response = await fetch("/insurance/travel/web/v2/dropdown" + endpoint);
+        const data = await response.json();
+        return data.items;
+    } catch (error) {
+        console.error(`Error fetching data from ${endpoint}: `, error);
+        return [];
+    }
+}
+
+function populateDropdown(dropdownId, defaultText, options, isMultiSelect = false) {
     const dropdown = document.getElementById(dropdownId);
 
     // Clear previous content
@@ -15,23 +26,18 @@ function populateDropdown(dropdownId, defaultText, endpoint, isMultiSelect = fal
         dropdown.appendChild(defaultOption);
    }
 
-    fetch("/insurance/travel/web/v2/dropdown" + endpoint)
-        .then(response => response.json()) // Convert to JSON
-        .then(data => {
-            data.items.forEach(i => {
-                let option = document.createElement("option");
-                option.value = i;
-                option.textContent = i;
-                dropdown.appendChild(option);
-            });
+    options.forEach(i => {
+        let option = document.createElement("option");
+        option.value = i;
+        option.textContent = i;
+        dropdown.appendChild(option);
+    });
 
-            // Initialize Select2
-            if (isMultiSelect) {
-                $(`#${dropdownId}`).select2({
-                    placeholder: defaultText,
-                    allowClear: true
-                });
-            }
-        })
-        .catch (error => console.error(`Error fetching data for ${dropdownId}: `, error));
+    // Apply Select2 for multiselect options
+    if (isMultiSelect) {
+        $(`#${dropdownId}`).select2({
+            placeholder: defaultText,
+            allowClear: true
+        });
+    }
 }
