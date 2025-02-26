@@ -2,7 +2,23 @@
 This repository contains a microservice architecture deployed in Docker containers. It demonstrates distributed systems 
 principles and containerization using Spring Boot, RabbitMQ, Docker Compose, and Elastic Stack for monitoring.
 
-# Overview
+## About the Process
+This project I initially developed in a private repository before migrating here, so the commit history unfortunately 
+does not reflect the full process (around 200 more commits). The project was built from scratch, incrementally adding 
+and refactoring features following a common industry design example, but with various additions and improvements.
+### Key Extensions & Contributions
+- Distributed tracing with Micrometer Tracing and Brave (including RabbitMQ tracing beyond out-of-the-box support).
+- Spring Security (Basic Auth) for securing REST endpoints (and generally everything other excluding web) with
+different authorization levels.
+- Optimized asynchronous processing with RabbitMQ Dead Letter Exchange (DLX).
+- Optimized tests using an abstract template method pattern, parameterized tests, dynamic tests from stream.
+- Cross-cutting aspects for logging.
+- Caching with Caffeine.
+- Modern Java usage with sealed classes for response handling and records for immutable DTOs.
+- Visual system design with C4 model.
+- Static code analysis with Checkstyle, including custom filters.
+
+## Overview
 The core of the system is the insurance calculator application web service, which calculates insurance premiums based on
 user requests. The project extends the core application into a microservice architecture by introducing two additional 
 services:
