@@ -19,17 +19,26 @@ different authorization levels.
 - Static code analysis with Checkstyle, including custom filters.
 
 ## Overview
-The core of the system is the insurance calculator application web service, which calculates insurance premiums based on
+The core of the system is the **Insurance Calculator Application Web Service**, which calculates insurance premiums based on
 user requests. The project extends the core application into a microservice architecture by introducing two additional 
 services:
 - **Blacklist Service**: A synchronously integrated service to verify whether a person is not on a blacklist.
 - **Proposal Generator**: An asynchronously integrated service (via RabbitMQ) for generating insurance proposals in 
 PDF format.
+
 The system uses RabbitMQ for message brokering and MySQL as the database. For monitoring and observability, the 
 Elastic Stack is utilized, including Filebeat, Metricbeat, Logstash, Elasticsearch, and Kibana for data visualization.
 
 All services and supporting components are containerized and orchestrated using Docker Compose. Once the necessary
 custom images are created, the entire system can be started with a single command.
+
+## Limitations
+- Scalability: Currently, services are single-instance without load balancing.
+- Resilience: Lacks circuit breakers and fallback mechanisms.
+- Service Discovery: No dynamic service registration or discovery implemented.
+- Deployment: Not deployed on an orchestrated platform like Kubernetes.
+
+These limitations are considered potential areas for future extension.
 
 ## Key Features
 - Microservices architecture: 10 Docker containers, each representing a distinct service, for modular development and 
