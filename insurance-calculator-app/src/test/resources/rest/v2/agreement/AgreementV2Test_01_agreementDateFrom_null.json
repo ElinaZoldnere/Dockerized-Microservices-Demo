@@ -1,7 +1,7 @@
 {
   "request": {
     "agreementDateFrom": null,
-    "agreementDateTo": "2025-03-11",
+    "agreementDateTo": "2025-06-11",
     "selectedRisks": [
       "TRAVEL_MEDICAL",
       "TRAVEL_LOSS_BAGGAGE"

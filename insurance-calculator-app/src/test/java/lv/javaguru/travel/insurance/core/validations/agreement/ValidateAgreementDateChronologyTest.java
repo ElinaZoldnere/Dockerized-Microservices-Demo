@@ -40,7 +40,7 @@ class ValidateAgreementDateChronologyTest {
     void validateShouldReturnErrorWhenAgreementDateChronologyIsWrong(String testName, LocalDate agreementDateTo) {
         helper = new DateHelper();
         AgreementDTO agreement = AgreementDTOTestBuilder.createAgreement()
-                .withDateFrom(helper.newDate("2025.03.10"))
+                .withDateFrom(helper.newDate("2025.06.10"))
                 .withDateTo(agreementDateTo)
                 .build();
 
@@ -62,9 +62,9 @@ class ValidateAgreementDateChronologyTest {
     private static Stream<Arguments> agreementDateToValue() {
         return Stream.of(
                 Arguments.of("AgreementDateTo equals agreementDateFrom",
-                        helper.newDate("2025.03.10")),
+                        helper.newDate("2025.06.10")),
                 Arguments.of("AgreementDateTo less than agreementDateFrom",
-                        helper.newDate("2025.03.09"))
+                        helper.newDate("2025.06.09"))
         );
     }
 

@@ -36,8 +36,8 @@ class ValidateCountryIntegrationTest {
                 .build();
 
         AgreementDTO agreement = AgreementDTOTestBuilder.createAgreement()
-                .withDateFrom(helper.newDate("2025.03.10"))
-                .withDateTo(helper.newDate("2025.03.11"))
+                .withDateFrom(helper.newDate("2025.06.10"))
+                .withDateTo(helper.newDate("2025.06.11"))
                 .withCountry("INVALID")
                 .withSelectedRisks(List.of("TRAVEL_MEDICAL", "TRAVEL_LOSS_BAGGAGE"))
                 .withPerson(person)
@@ -64,8 +64,8 @@ class ValidateCountryIntegrationTest {
                 .build();
 
         AgreementDTO agreement = AgreementDTOTestBuilder.createAgreement()
-                .withDateFrom(helper.newDate("2025.03.10"))
-                .withDateTo(helper.newDate("2025.03.11"))
+                .withDateFrom(helper.newDate("2025.06.10"))
+                .withDateTo(helper.newDate("2025.06.11"))
                 .withCountry(null)
                 .withSelectedRisks(List.of("TRAVEL_MEDICAL", "TRAVEL_LOSS_BAGGAGE"))
                 .withPerson(person)

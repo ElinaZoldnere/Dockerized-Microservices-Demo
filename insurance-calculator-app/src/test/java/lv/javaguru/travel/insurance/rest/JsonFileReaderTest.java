@@ -18,8 +18,8 @@ class JsonFileReaderTest {
                         "personLastName" : "Bērziņš",
                         "personalCode": "123456-12345",
                         "personBirthDate" : "1990-01-01",
-                        "agreementDateFrom" : "2025-03-10",
-                        "agreementDateTo" : "2025-03-11",
+                        "agreementDateFrom" : "2025-06-10",
+                        "agreementDateTo" : "2025-06-11",
                         "selectedRisks" : ["TRAVEL_MEDICAL", "TRAVEL_LOSS_BAGGAGE"],
                         "country" : "SPAIN",
                         "medicalRiskLimitLevel" : "LEVEL_15000"

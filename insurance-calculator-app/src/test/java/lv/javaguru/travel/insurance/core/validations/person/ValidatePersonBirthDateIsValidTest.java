@@ -50,7 +50,7 @@ class ValidatePersonBirthDateIsValidTest {
                 .withPersonBirthdate(birthDate)
                 .build();
 
-        when(dateTimeUtil.currentDate()).thenReturn(helper.newDate("2025.03.11"));
+        when(dateTimeUtil.currentDate()).thenReturn(helper.newDate("2025.06.11"));
         when(dateTimeUtil.subtractYears(any(LocalDate.class), eq(150))).thenReturn(helper.newDate("1875.03.11"));
         when(errorMock.buildError("ERROR_CODE_14"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_14",

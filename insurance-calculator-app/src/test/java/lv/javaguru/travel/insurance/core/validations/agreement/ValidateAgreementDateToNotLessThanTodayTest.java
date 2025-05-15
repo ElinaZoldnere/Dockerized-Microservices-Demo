@@ -31,11 +31,11 @@ class ValidateAgreementDateToNotLessThanTodayTest {
     @Test
     void validateShouldReturnErrorWhenAgreementDateToLessThanToday() {
         AgreementDTO agreement = AgreementDTOTestBuilder.createAgreement()
-                .withDateFrom(helper.newDate("2025.03.10"))
-                .withDateTo(helper.newDate("2025.03.11"))
+                .withDateFrom(helper.newDate("2025.06.10"))
+                .withDateTo(helper.newDate("2025.06.11"))
                 .build();
 
-        when(dateTimeUtil.currentDate()).thenReturn(helper.newDate("2025.04.11"));
+        when(dateTimeUtil.currentDate()).thenReturn(helper.newDate("2025.07.11"));
         when(errorMock.buildError("ERROR_CODE_12"))
                 .thenReturn(new ValidationErrorDTO("ERROR_CODE_12",
                         "Field agreementDateTo is in the past!"));
