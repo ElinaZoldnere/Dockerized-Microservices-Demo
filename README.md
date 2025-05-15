@@ -2,6 +2,8 @@
 This repository contains a microservice architecture deployed in Docker containers. It demonstrates distributed systems 
 principles and containerization using Spring Boot, RabbitMQ, Docker Compose, and Elastic Stack for monitoring.
 
+![Build Status](https://github.com/ElinaZoldnere/Dockerized-Microservices-Demo/actions/workflows/build.yaml/badge.svg)
+
 ## About the Process
 This project I initially developed in a private repository before migrating here, so the commit history unfortunately 
 does not reflect the full process (around 200 more commits). The project was built from scratch, incrementally adding 
@@ -12,7 +14,7 @@ and refactoring features following a common industry design example, but with va
 different authorization levels.
 - Optimized asynchronous processing with RabbitMQ Dead Letter Exchange (DLX).
 - Optimized tests using an abstract template method pattern, parameterized tests, dynamic tests from stream.
-- Cross-cutting aspects for logging.
+- Cross-cutting aspects for logging.![Build Status](https://github.com/elina-zoldnere/my-repo/actions/workflows/build.yml/badge.svg)
 - Caching with Caffeine.
 - Modern Java usage with sealed classes for response handling and records for immutable DTOs.
 - Visual system design with C4 model.
