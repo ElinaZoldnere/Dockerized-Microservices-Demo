@@ -2,13 +2,15 @@ package lv.javaguru.travel.insurance.core.util;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("checkstyle:MagicNumber")
 class DateTimeUtilTest {
 
-    private final DateTimeUtil timeUtil = new DateTimeUtil();
+    private final Clock testClock = Clock.systemUTC();
+    private final DateTimeUtil timeUtil = new DateTimeUtil(testClock);
 
     @Test
     void calculateDifferenceBetweenDaysShouldCalculateCorrectResult() {
