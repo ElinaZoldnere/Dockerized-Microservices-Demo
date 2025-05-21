@@ -1,5 +1,7 @@
 package lv.javaguru.travel.insurance.loadtesting;
 
+import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
+
 import com.google.common.base.Stopwatch;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -14,7 +16,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
 abstract class CallTemplate implements Runnable {
 

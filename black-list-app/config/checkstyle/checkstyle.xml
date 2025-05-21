@@ -148,21 +148,17 @@
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
 
-
         <!-- https://checkstyle.org/config_imports.html -->
         <!--            Checks for imports              -->
         <module name="AvoidStarImport"/>
-        <!-- <module name="AvoidStaticImport"/> -->
-        <!-- <module name="CustomImportOrder"/> -->
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
-        <!-- <module name="ImportControl"/> -->
         <module name="ImportOrder">
-            <property name="option" value="under"/>
+            <property name="option" value="top"/> <!-- static imports on top -->
             <property name="sortStaticImportsAlphabetically" value="true"/>
+            <property name="separated" value="true"/>
         </module>
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
-
 
         <!-- https://checkstyle.org/config_sizes.html -->
         <!--      Checks for Size Violations.         -->

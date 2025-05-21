@@ -1,5 +1,9 @@
 package lv.javaguru.travel.insurance.rest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.nio.charset.StandardCharsets;
@@ -14,9 +18,6 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
 @SpringBootTest
 @AutoConfigureMockMvc

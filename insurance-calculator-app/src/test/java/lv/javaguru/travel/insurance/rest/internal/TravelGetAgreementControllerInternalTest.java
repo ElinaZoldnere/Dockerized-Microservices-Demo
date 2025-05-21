@@ -1,5 +1,10 @@
 package lv.javaguru.travel.insurance.rest.internal;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import jakarta.persistence.EntityManager;
@@ -22,10 +27,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static uk.org.webcompere.modelassert.json.JsonAssertions.assertJson;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

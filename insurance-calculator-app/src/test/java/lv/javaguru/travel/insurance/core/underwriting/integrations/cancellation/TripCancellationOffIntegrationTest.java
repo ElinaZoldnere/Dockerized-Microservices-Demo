@@ -1,5 +1,7 @@
 package lv.javaguru.travel.insurance.core.underwriting.integrations.cancellation;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.math.BigDecimal;
 import lv.javaguru.travel.insurance.core.api.command.TravelCalculatePremiumCoreCommand;
 import lv.javaguru.travel.insurance.core.api.command.TravelCalculatePremiumCoreResult;
@@ -18,7 +20,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(properties = {"feature.tripCancellation.enabled=false"})

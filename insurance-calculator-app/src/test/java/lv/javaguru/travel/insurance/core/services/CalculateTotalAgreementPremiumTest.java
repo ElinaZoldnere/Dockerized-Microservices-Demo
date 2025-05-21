@@ -1,5 +1,7 @@
 package lv.javaguru.travel.insurance.core.services;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.math.BigDecimal;
 import java.util.List;
 import lv.javaguru.travel.insurance.core.api.dto.PersonDTO;
@@ -10,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class CalculateTotalAgreementPremiumTest {

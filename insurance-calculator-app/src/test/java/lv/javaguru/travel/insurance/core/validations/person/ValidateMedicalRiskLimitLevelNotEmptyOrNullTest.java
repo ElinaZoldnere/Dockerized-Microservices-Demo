@@ -1,5 +1,9 @@
 package lv.javaguru.travel.insurance.core.validations.person;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+
 import java.util.Optional;
 import java.util.stream.Stream;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTO;
@@ -17,9 +21,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ValidateMedicalRiskLimitLevelNotEmptyOrNullTest {
