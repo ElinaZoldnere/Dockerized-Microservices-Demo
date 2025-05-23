@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import lv.javaguru.travel.insurance.config.SharedIntegrationTest;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTOTestBuilder;
 import lv.javaguru.travel.insurance.core.api.dto.ValidationErrorDTO;
@@ -13,11 +14,8 @@ import lv.javaguru.travel.insurance.core.validations.TravelAgreementValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SharedIntegrationTest
 class ValidatePersonsIntegrationTest {
 
     @Autowired
