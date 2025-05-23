@@ -18,11 +18,9 @@ class ValidateAgreementDateToNotLessThanToday extends AgreementFieldValidationIm
 
     @Override
     public Optional<ValidationErrorDTO> validateSingle(AgreementDTO agreement) {
-        LocalDate agreementDateFrom = agreement.agreementDateFrom();
         LocalDate agreementDateTo = agreement.agreementDateTo();
 
-        return (agreementDateFrom != null && agreementDateTo != null
-                && agreementDateTo.isBefore(dateTimeUtil.currentDate()))
+        return (agreementDateTo != null && agreementDateTo.isBefore(dateTimeUtil.currentDate()))
                 ? Optional.of(validationErrorFactory.buildError("ERROR_CODE_12"))
                 : Optional.empty();
     }
