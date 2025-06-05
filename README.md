@@ -14,7 +14,7 @@ and refactoring features following a common industry design example, but with va
 different authorization levels.
 - Optimized asynchronous processing with RabbitMQ Dead Letter Exchange (DLX).
 - Optimized tests using an abstract template method pattern, parameterized tests, dynamic tests from stream.
-- Cross-cutting aspects for logging.![Build Status](https://github.com/elina-zoldnere/my-repo/actions/workflows/build.yml/badge.svg)
+- Cross-cutting aspects for logging.
 - Caching with Caffeine.
 - Modern Java usage with sealed classes for response handling and records for immutable DTOs.
 - Visual system design with C4 model.
