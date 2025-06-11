@@ -3,6 +3,7 @@ package lv.javaguru.travel.insurance.core.underwriting.integrations.medical;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import lv.javaguru.travel.insurance.config.TestTimeConfig;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTOTestBuilder;
 import lv.javaguru.travel.insurance.core.api.dto.PersonDTO;
@@ -16,11 +17,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.annotation.DirtiesContext;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(properties = {"age.coefficient.enabled=true", "medical.risk.limit.level.enabled=false"})
 @AutoConfigureMockMvc
+@Import(TestTimeConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 class AgeCoefficientOnMedicalRiskLimitLevelOffIntegrationTest {
     @Autowired
