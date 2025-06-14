@@ -1,0 +1,15 @@
+# Config options:
+# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/dependabot-options-reference#about-the-dependabotyml-file
+
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "dependabot"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
