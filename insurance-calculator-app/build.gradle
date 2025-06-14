@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-    testImplementation 'uk.org.webcompere:model-assert:1.0.3'
+    testImplementation 'uk.org.webcompere:model-assert:1.1.0'
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation 'com.h2database:h2:2.2.224'
 
