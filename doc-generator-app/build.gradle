@@ -23,7 +23,7 @@ dependencies {
     implementation 'org.apache.pdfbox:pdfbox:3.0.5'
 
     implementation 'com.mysql:mysql-connector-j:8.3.0'
-    implementation 'com.h2database:h2:2.2.224'
+    implementation 'com.h2database:h2:2.3.232'
 
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'io.zipkin.brave:brave-instrumentation-spring-rabbit'
@@ -33,7 +33,7 @@ dependencies {
 
     testImplementation 'uk.org.webcompere:model-assert:1.1.0'
     testImplementation 'org.hamcrest:hamcrest:2.2'
-    testImplementation 'com.h2database:h2:2.2.224'
+    testImplementation 'com.h2database:h2:2.3.232'
 
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
