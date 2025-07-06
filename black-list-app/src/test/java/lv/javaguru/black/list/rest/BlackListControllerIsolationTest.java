@@ -20,8 +20,8 @@ import lv.javaguru.black.list.dto.DTOConverter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(BlackListController.class)
@@ -32,13 +32,13 @@ class BlackListControllerIsolationTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @MockBean
+    @MockitoBean
     private DTOConverter converter;
-    @MockBean
+    @MockitoBean
     private BlackListedPersonService service;
-    @MockBean
+    @MockitoBean
     private MessageLogger messageLogger;
-    @MockBean
+    @MockitoBean
     private ExecutionTimeLogger executionTimeLogger;
 
     @Test

@@ -106,4 +106,5 @@ class TravelGetAgreementControllerInternalTest {
         return query.getSingleResult();
     }
 
+
 }

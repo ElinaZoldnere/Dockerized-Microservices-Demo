@@ -18,8 +18,8 @@ import lv.javaguru.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TravelInsuranceControllerV2.class)
@@ -29,9 +29,9 @@ class TravelInsuranceControllerV2Test {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private TravelCalculatePremiumService service;
-    @MockBean
+    @MockitoBean
     private DtoV2Converter dtoV2Converter;
 
     @Test
