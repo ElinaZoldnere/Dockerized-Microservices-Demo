@@ -22,7 +22,7 @@ dependencies {
 
     implementation 'com.mysql:mysql-connector-j:8.4.0'
     implementation 'com.h2database:h2:2.3.232'
-    implementation 'org.liquibase:liquibase-core:4.32.0'
+    implementation 'org.liquibase:liquibase-core:4.33.0'
 
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
