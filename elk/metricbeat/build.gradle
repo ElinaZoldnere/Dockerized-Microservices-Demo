@@ -1,10 +1,8 @@
-plugins {
-    id 'com.palantir.docker' version '0.36.0'
-}
-
+/* Legacy Palantir config (for reference)
 docker {
     name "my-custom-metricbeat:1.0.2"
     files 'metricbeat.yml'
     files 'modules/system.yml'
     files 'modules/http.yml'
 }
+*/

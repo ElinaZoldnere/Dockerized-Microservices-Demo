@@ -1,9 +1,6 @@
-plugins {
-	id 'com.palantir.docker' version '0.36.0'
-}
-
-
+/* Legacy Palantir config (for reference)
 docker {
 	name 'my-custom-filebeat:1.0.2'
 	files 'filebeat.yml'
 }
+*/
