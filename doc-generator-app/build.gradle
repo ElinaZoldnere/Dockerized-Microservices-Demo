@@ -2,7 +2,6 @@ plugins {
     id 'org.springframework.boot' version '3.5.4'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'maven-publish'
-    id 'com.palantir.docker' version '0.36.0'
     id 'checkstyle'
 }
 
@@ -99,7 +98,7 @@ publishing {
         mavenLocal()
     }
 }
-
+/* Legacy Palantir config (for reference)
 docker {
     dependsOn bootJar
     name "doc-generator:1.0.0"
@@ -111,3 +110,4 @@ docker {
 tasks.named('dockerPrepare').configure {
     dependsOn bootJar // Explicit dependency on bootJar
 }
+*/
