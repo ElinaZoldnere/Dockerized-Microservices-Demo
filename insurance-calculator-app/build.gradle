@@ -34,7 +34,7 @@ dependencies {
     implementation 'com.h2database:h2:2.4.240'
     implementation 'org.liquibase:liquibase-core:4.33.0'
 
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.2.2'
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.2.3'
 
     implementation 'com.structurizr:structurizr-dsl:2.2.0'
 
