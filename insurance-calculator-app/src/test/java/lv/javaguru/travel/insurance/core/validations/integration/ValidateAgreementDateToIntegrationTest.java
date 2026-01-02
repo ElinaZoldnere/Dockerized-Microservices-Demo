@@ -62,7 +62,7 @@ class ValidateAgreementDateToIntegrationTest {
 
         AgreementDTO agreement = AgreementDTOTestBuilder.createAgreement()
                 .withDateFrom(helper.newDate("2025.06.10"))
-                .withDateTo(helper.newDate("2024.03.11"))
+                .withDateTo(helper.newDate("2023.12.30"))
                 .withCountry("SPAIN")
                 .withSelectedRisk("TRAVEL_MEDICAL")
                 .withPerson(person)
