@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.1.7'
     id 'maven-publish'
     id 'checkstyle'
+    id 'com.google.cloud.tools.jib' version '3.5.3'
 }
 
 checkstyle {
@@ -61,8 +62,7 @@ jar {
 
 bootJar {
     enabled = true
-    archiveBaseName = 'doc-generator'
-    archiveVersion = '1.0.0'
+    archiveFileName = 'doc-generator.jar'
 }
 
 test {
@@ -98,16 +98,38 @@ publishing {
         mavenLocal()
     }
 }
-/* Legacy Palantir config (for reference)
-docker {
-    dependsOn bootJar
-    name "doc-generator:1.0.0"
-    files 'build/libs/doc-generator-1.0.0.jar'
-    files 'wait-for-it.sh'
-    buildArgs(['JAR_FILE': "doc-generator-1.0.0.jar"])
-}
 
-tasks.named('dockerPrepare').configure {
-    dependsOn bootJar // Explicit dependency on bootJar
+jib {
+    from {
+        image = 'eclipse-temurin:21-jre'
+    }
+    to {
+        image = 'doc-generator:1.0.0'
+    }
+
+    container {
+        workingDirectory = '/app'
+        entrypoint = [
+                'sh',
+                '-c',
+                '/app/wait-for-it.sh rabbitmq-container:5672 -t 30 -- java -cp "$(cat /app/jib-classpath-file)" "$(cat /app/jib-main-class-file)"'
+        ]
+        ports = ['8080']
+        environment = [
+                'TZ': 'Europe/Helsinki'
+        ]
+    }
+
+    extraDirectories {
+        paths {
+            path {
+                from = file('src/main/jib')
+                into = '/app'
+                includes = ['wait-for-it.sh']
+            }
+        }
+        permissions = [
+                '/app/wait-for-it.sh': '755'
+        ]
+    }
 }
-*/
