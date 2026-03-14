@@ -4,6 +4,7 @@ plugins {
     id 'maven-publish'
     id 'checkstyle'
     id 'jacoco'
+    id 'com.google.cloud.tools.jib' version '3.5.3'
 }
 
 checkstyle {
@@ -75,8 +76,7 @@ jar {
 
 bootJar {
     enabled = true
-    archiveBaseName = 'insurance-calculator'
-    archiveVersion = '1.0.2'
+    archiveFileName = 'insurance-calculator.jar'
 }
 
 test {
@@ -136,5 +136,40 @@ jacocoTestReport {
     reports {
         xml.required.set(true)
         html.required.set(true)
+    }
+}
+
+jib {
+    from {
+        image = 'eclipse-temurin:21-jre'
+    }
+    to {
+        image = 'insurance-calculator:1.0.2'
+    }
+
+    container {
+        workingDirectory = '/app'
+        entrypoint = [
+                'sh',
+                '-c',
+                '/app/wait-for-it.sh mysql-container:3306 -t 45 -- java -cp "$(cat /app/jib-classpath-file)" "$(cat /app/jib-main-class-file)"'
+        ]
+        ports = ['8080']
+        environment = [
+                'TZ': 'Europe/Helsinki'
+        ]
+    }
+
+    extraDirectories {
+        paths {
+            path {
+                from = file('src/main/jib')
+                into = '/app'
+                includes = ['wait-for-it.sh']
+            }
+        }
+        permissions = [
+                '/app/wait-for-it.sh': '755'
+        ]
     }
 }
