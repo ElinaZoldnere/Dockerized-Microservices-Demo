@@ -45,7 +45,8 @@ These limitations are considered potential areas for future extension.
 ## Key Features
 - Microservices architecture: 10 Docker containers, each representing a distinct service, for modular development and 
 deployment.
-- Spring Boot applications: JDK 21, Spring Boot 3.3, builds, dependencies, and Docker integration managed with Gradle.
+- Spring Boot applications: JDK 21, Spring Boot 3.5, builds, dependencies, and container image creation managed with 
+Gradle and Google Jib.
 - Configuration management: externalized environment variables and configurations, and Spring Profiles for different
 environments.
 - Message brokering: RabbitMQ for asynchronous communication, featuring Dead-Letter Queues and Exchanges to handle
@@ -65,10 +66,10 @@ message failures.
 ![container_view](documentation/c4_diagrams/C4_Container_view.png)<br>
 
 ## How to Run the Project
-Although it would be possible to build images and run containers only with `docker-compose.yaml`, with the necessary 
-configurations, a separate image-building step using Gradle was preferred. This approach provides better control over 
-the workflow, possible debugging, and ensures that dependencies like a freshly built JAR are properly handled before 
-bringing up the containers.
+Although images could also be built with `docker-compose.yaml`, a separate Gradle and Jib step for Spring Boot 
+applications was preferred. This approach provides better control, and makes the workflow easier to inspect and debug. 
+Compared to previously used Palantir plugin, Jib produces a layered exploded image layout, so dependency layers can 
+remain cached when only application code changes.
 
 ### Prerequisites
 - **Java Development Kit (JDK) 21** – it can be downloaded either within IDE (like IntelliJ IDEA, Eclipse) or manually -
@@ -109,12 +110,10 @@ mv .env.example .env
 ```
 4. Build the project custom images using Gradle:
 ```bash
-./gradlew :black-list-app:docker
-./gradlew :doc-generator-app:docker
-./gradlew :insurance-calculator-app:docker
-./gradlew :elk:filebeat:docker
-./gradlew :elk:metricbeat:docker
-./gradlew :elk:logstash:docker
+./gradlew :black-list-app:jibDockerBuild
+./gradlew :doc-generator-app:jibDockerBuild
+./gradlew :insurance-calculator-app:jibDockerBuild
+docker compose filebeat metricbeat logstash
 ```
 5. Start the Docker containers using Docker Compose:
 ```bash
