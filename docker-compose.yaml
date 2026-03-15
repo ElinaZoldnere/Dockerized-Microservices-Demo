@@ -124,6 +124,8 @@ services:
     restart: on-failure
     depends_on:
       - elasticsearch
+    build:
+      context: ./elk/logstash
 
   kibana:
     container_name: elk-kibana-container
@@ -153,6 +155,8 @@ services:
     restart: always
     depends_on:
       - logstash
+    build:
+      context: ./elk/filebeat
 
   metricbeat:
     container_name: elk-metricbeat-container
@@ -169,3 +173,5 @@ services:
     restart: always
     depends_on:
       - logstash
+    build:
+      context: ./elk/metricbeat
