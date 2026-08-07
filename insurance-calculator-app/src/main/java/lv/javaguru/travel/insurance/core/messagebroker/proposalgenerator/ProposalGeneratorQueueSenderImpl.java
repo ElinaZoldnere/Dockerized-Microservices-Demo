@@ -1,7 +1,5 @@
 package lv.javaguru.travel.insurance.core.messagebroker.proposalgenerator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.slf4j.Logger;
@@ -10,6 +8,8 @@ import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @Profile("mysql-container")
@@ -27,7 +27,7 @@ class ProposalGeneratorQueueSenderImpl implements ProposalGeneratorQueueSender {
             String agreementToJson = mapper.writeValueAsString(agreement);
             rabbitTemplate.convertAndSend("q.proposal-generation", agreementToJson);
             LOGGER.info("Proposal Generator: sent agreement UUID {}, content: {}", agreement.uuid(), agreementToJson);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             LOGGER.error("Error converting agreement UUID {} to JSON", agreement.uuid(), e);
         } catch (AmqpException e) {
             LOGGER.error("Error sending agreement UUID {} to queue", agreement.uuid(), e);

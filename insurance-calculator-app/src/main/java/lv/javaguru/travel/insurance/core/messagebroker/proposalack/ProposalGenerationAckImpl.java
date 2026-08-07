@@ -1,6 +1,5 @@
 package lv.javaguru.travel.insurance.core.messagebroker.proposalack;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.core.api.dto.AckMessageDTO;
@@ -19,7 +18,7 @@ public class ProposalGenerationAckImpl implements ProposalGenerationAck {
     private final ProposalGenerationAckRegistrar registrar;
 
     @Override
-    public void saveAck(String message) throws JsonProcessingException, DataIntegrityViolationException {
+    public void saveAck(String message) throws DataIntegrityViolationException {
         AckMessageDTO ackMessageDTO = converter.convert(message);
         registrar.register(ackMessageDTO);
     }

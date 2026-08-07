@@ -1,7 +1,5 @@
 package lv.javaguru.doc.generator.core.messagebroker.proposalack;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.doc.generator.core.api.dto.AckMessageDTO;
 import org.slf4j.Logger;
@@ -9,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor(access = lombok.AccessLevel.PACKAGE)
@@ -28,7 +28,7 @@ class ProposalGenerationAckSenderImpl implements ProposalGenerationAckSender {
             LOGGER.info("Sent PDF generation acknowledgment for proposal: uuid {}, path: {}", ackMessageDTO.uuid(),
                     ackMessageDTO.path());
 
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             LOGGER.error("Error converting acknowledgment message to JSON for agreement UUID {}",
                     ackMessageDTO.uuid(), e);
 

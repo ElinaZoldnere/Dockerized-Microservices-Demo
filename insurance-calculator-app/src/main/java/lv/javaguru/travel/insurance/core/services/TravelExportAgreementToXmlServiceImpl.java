@@ -1,8 +1,5 @@
 package lv.javaguru.travel.insurance.core.services;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -23,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.core.JacksonException;
+import tools.jackson.dataformat.xml.XmlMapper;
 
 @Component
 @Transactional
@@ -50,9 +49,7 @@ class TravelExportAgreementToXmlServiceImpl implements TravelExportAgreementToXm
         this.getAgreementService = getAgreementService;
         this.registrar = registrar;
         this.errorFactory = errorFactory;
-
-        this.xmlMapper = new XmlMapper();
-        this.xmlMapper.registerModule(new JavaTimeModule());
+        this.xmlMapper = XmlMapper.builder().build();
     }
 
     @Value("${agreement.xml.exporter.job.path}")
@@ -72,7 +69,7 @@ class TravelExportAgreementToXmlServiceImpl implements TravelExportAgreementToXm
         try {
             return processExport(uuid, uuidPlaceH);
 
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             return handleException("ERROR_CODE_81", uuid, uuidPlaceH, e);
         } catch (IOException e) {
             return handleException("ERROR_CODE_82", uuid, uuidPlaceH, e);
@@ -111,7 +108,7 @@ class TravelExportAgreementToXmlServiceImpl implements TravelExportAgreementToXm
         return agreementResult.getAgreement();
     }
 
-    private String convertAgreementToXml(AgreementSerialDTO agreement) throws JsonProcessingException {
+    private String convertAgreementToXml(AgreementSerialDTO agreement) {
         return xmlMapper.writeValueAsString(agreement);
     }
 

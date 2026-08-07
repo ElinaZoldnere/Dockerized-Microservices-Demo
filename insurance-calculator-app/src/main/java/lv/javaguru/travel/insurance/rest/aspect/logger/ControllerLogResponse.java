@@ -1,7 +1,5 @@
 package lv.javaguru.travel.insurance.rest.aspect.logger;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.dto.internal.TravelGetAgreementResponse;
 import lv.javaguru.travel.insurance.dto.v1.TravelCalculatePremiumResponseV1;
@@ -9,6 +7,8 @@ import lv.javaguru.travel.insurance.dto.v2.TravelCalculatePremiumResponseV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @RequiredArgsConstructor(access = lombok.AccessLevel.PACKAGE)
@@ -25,7 +25,7 @@ class ControllerLogResponse {
             try {
                 String responseJson = mapper.writeValueAsString(response);
                 LOGGER.info("RESPONSE: {}", responseJson);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 LOGGER.error("Error converting response to JSON", e);
             }
         } else {

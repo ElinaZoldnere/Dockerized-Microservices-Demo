@@ -1,13 +1,13 @@
 package lv.javaguru.travel.insurance.core.messagebroker.proposalgenerator;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lv.javaguru.travel.insurance.core.api.dto.AgreementDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 
 @Component
 @Profile({"h2", "mysql-local"})
@@ -23,7 +23,7 @@ class ProposalGeneratorQueueSenderNoBrokerImpl implements ProposalGeneratorQueue
         try {
             String agreementJson = mapper.writeValueAsString(agreement);
             LOGGER.info("Proposal generator (No-Broker) AGREEMENT: {}", agreementJson);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             LOGGER.error("Error converting agreement to JSON", e);
         }
     }

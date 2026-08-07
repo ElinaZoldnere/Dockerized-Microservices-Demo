@@ -2,16 +2,15 @@ package lv.javaguru.travel.insurance.rest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import tools.jackson.databind.ObjectMapper;
 
 class JsonFileReaderTest {
 
     private final JsonFileReader reader = new JsonFileReader();
 
     @Test
-    void jsonFileReaderShouldReturnCorrectResult() throws JsonProcessingException {
+    void jsonFileReaderShouldReturnCorrectResult() {
         String expectedJson = """
                 {
                     "request" : {

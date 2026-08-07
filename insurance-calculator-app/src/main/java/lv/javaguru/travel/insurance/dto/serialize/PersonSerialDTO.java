@@ -1,7 +1,6 @@
 package lv.javaguru.travel.insurance.dto.serialize;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 @Getter
 @Setter

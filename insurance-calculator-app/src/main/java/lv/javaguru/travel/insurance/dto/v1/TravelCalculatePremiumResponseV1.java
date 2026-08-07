@@ -2,7 +2,6 @@ package lv.javaguru.travel.insurance.dto.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,6 +13,7 @@ import lv.javaguru.travel.insurance.dto.CoreResponse;
 import lv.javaguru.travel.insurance.dto.RiskPremium;
 import lv.javaguru.travel.insurance.dto.ValidationError;
 import lv.javaguru.travel.insurance.dto.util.BigDecimalSerializer;
+import tools.jackson.databind.annotation.JsonSerialize;
 
 @Getter
 @Setter

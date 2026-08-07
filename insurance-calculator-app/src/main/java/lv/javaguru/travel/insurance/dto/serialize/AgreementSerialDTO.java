@@ -1,8 +1,7 @@
 package lv.javaguru.travel.insurance.dto.serialize;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -11,13 +10,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@JacksonXmlRootElement(localName = "agreement")
+@JsonRootName("agreement")
 public class AgreementSerialDTO {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
