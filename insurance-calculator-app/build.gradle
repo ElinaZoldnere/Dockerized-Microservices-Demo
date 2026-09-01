@@ -28,7 +28,7 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'
 
     implementation 'tools.jackson.dataformat:jackson-dataformat-xml:3.2.1'
-    implementation 'com.google.guava:guava:33.6.0-jre'
+    implementation 'com.google.guava:guava:33.7.1-jre'
     implementation 'com.google.code.gson:gson:2.14.0'
     implementation 'jakarta.validation:jakarta.validation-api'
 
